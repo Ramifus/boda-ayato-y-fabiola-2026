@@ -41,6 +41,11 @@ const titulo = "Cronograma";
    momentos de música de la fiesta y por eso llevan el mismo dibujo.
 
    El último no lleva hora, igual que en el diseño.
+
+   Un salto de línea dentro del nombre lo parte en dos renglones. Hace
+   falta en "Despedida Novios": de una sola tirada mide el 33,6% del
+   ancho de la columna y se sale por el borde de la pantalla. Partido
+   queda en 18,4% y 14,1%, y entra cómodo.
 */
 const momentos = [
     { nombre: "Religiosa", hora: "2:00 P.M.", icono: "religiosa.png" },
@@ -55,7 +60,7 @@ const momentos = [
     { nombre: "Bouquete y liga", hora: "9:30 P.M.", icono: "bouquete.png" },
     { nombre: "Fandango", hora: "10:30 P.M.", icono: "turromanticos.png" },
     { nombre: "Turromantikos", hora: "00:30 A.M.", icono: "turromanticos.png" },
-    { nombre: "Despedida Novios", hora: "", icono: "despedida.png" },
+    { nombre: "Despedida\nNovios", hora: "", icono: "despedida.png" },
 ];
 // ──────────────────────────────────────────────────────────────
 ---
@@ -81,7 +86,11 @@ const momentos = [
                             aria-hidden="true"
                             class="icono"
                         />
-                        <p class="nombre font-tangerine">{momento.nombre}</p>
+                        <p class="nombre font-tangerine">
+                            {momento.nombre.split("\n").map((renglon) => (
+                                <span class="renglon">{renglon}</span>
+                            ))}
+                        </p>
                     </div>
 
                     {momento.hora && <span class="hora">{momento.hora}</span>}
@@ -233,6 +242,11 @@ const momentos = [
         font-size: 6.89cqw;
         line-height: 1.05;
         white-space: nowrap;
+    }
+
+    /* Cada renglón del nombre, uno debajo del otro */
+    .renglon {
+        display: block;
     }
 
     .izq .nombre {
