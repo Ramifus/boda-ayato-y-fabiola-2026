@@ -44,18 +44,22 @@ const parrafos = [
 const textoBoton = "Confirma tu asistencia";
 
 /*
-   El botón abre WhatsApp con el mensaje ya escrito. El número va con el
-   código de país y sin el + ni espacios, que es como lo pide wa.me.
-   Los nombres y la fecha salen de estas constantes, así que si alguna
-   cambia, el mensaje se actualiza solo.
+   El botón abre WhatsApp con el mensaje ya escrito.
 
-   OJO: el teléfono viene de la plantilla y hay que confirmarlo con los
-   novios antes de entregar.
+   El número va con el código de país y sin el + ni espacios, que es como
+   lo pide wa.me: el +591 61006490 de los novios se escribe 59161006490.
+
+   Los nombres y la fecha no se repiten dentro del mensaje: salen de
+   estas dos constantes, así que si alguna cambia, el mensaje se
+   actualiza solo y no queda una fecha vieja escondida en el texto.
+
+   El mensaje va en texto pelado, sin emojis: el invitado lo manda tal
+   cual le aparece, y un emoji en el medio lo vuelve informal.
 */
 const telefono = "59161006490";
 const novios = "Ayato y Fabiola";
 const fechaBoda = "24 de octubre de 2026";
-const mensaje = `Me complace confirmar mi asistencia a la boda de ${novios}, el ${fechaBoda}.`;
+const mensaje = `Me complace confirmar mi asistencia a la boda de ${novios}, que será realizada el ${fechaBoda}. Estaré sin falta.`;
 const enlaceConfirmar = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 // ──────────────────────────────────────────────────────────────
 ---
