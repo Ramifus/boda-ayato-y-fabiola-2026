@@ -43,7 +43,7 @@ const { pases = 0 } = Astro.props;
 ---
 
 <!-- PORTADA (cubre todo hasta que se toca el botón de ingreso) -->
-<!-- <Portada />  -->
+<Portada /> 
 
 <!-- CONTENIDO DE LA INVITACIÓN -->
 <div id="contenido-principal">
@@ -103,7 +103,9 @@ const { pases = 0 } = Astro.props;
 </div>
 
 <!--
-   El control flotante de la esquina ya no va: el reproductor de la
-   sección de música tiene su propio play/pausa y hacía falta uno solo.
+   El control flotante de la esquina: la nota que pausa y reanuda la
+   melodía. Es el único control de música mientras la sección Reproductor
+   esté apagada; si algún día se vuelve a encender, los dos manejan el
+   mismo audio (window.audioGlobal) y no se pisan.
 -->
-<!-- <BotonMusica /> -->
+<BotonMusica />
