@@ -213,34 +213,14 @@ const momentos = [
         -webkit-user-drag: none;
     }
 
-    /*
-       Los nombres largos —"Turromantikos", "Bouquete y liga", "Hayna
-       Wila"— se salen del bloque por los dos lados, y por el lado del
-       eje se chocaban con la hora.
-
-       El margen de abajo los corre hacia AFUERA: al achicar la caja por
-       el lado del eje, el texto centrado se va para el borde de la
-       columna y deja libre la zona de la hora. Se mueve solo el nombre;
-       el ícono se queda pegado a su rama, que es donde va.
-
-       Son 6cqw y no más: "Bouquete y liga" mide 25,4% del ancho de la
-       columna y con este corrimiento queda del 0,8% al 26,2%. Un poco
-       más y se saldría de la pantalla por la izquierda.
-    */
     .nombre {
         margin: 0.6cqw 0 0;
         color: #3f8a63;
         font-size: 6.89cqw;
         line-height: 1.05;
+        /* Los nombres largos se salen del bloque hacia afuera, hacia el
+           borde de la columna, como en el diseño */
         white-space: nowrap;
-    }
-
-    .izq .nombre {
-        margin-right: 6cqw;
-    }
-
-    .der .nombre {
-        margin-left: 6cqw;
     }
 
     /* La hora va debajo de la rama y pegada al eje, del lado de la rama */
@@ -254,21 +234,12 @@ const momentos = [
         white-space: nowrap;
     }
 
-    /*
-       La hora se corre hacia el eje para dejarle lugar al nombre. El 51%
-       la deja casi tocando la línea, que es lo más adentro que puede ir.
-
-       Ojo con el ancho de la hora: "00:30 A.M." mide cerca del 17% del
-       ancho de la columna, bastante más de lo que aparenta, porque va en
-       la letra de sistema y con espaciado entre letras. Ese ancho es el
-       que hay que tener en cuenta si se mueve algo de acá.
-    */
     .der .hora {
-        left: 51%;
+        left: 53%;
     }
 
     .izq .hora {
-        right: 51%;
+        right: 53%;
     }
 </style>
 
