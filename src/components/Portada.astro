@@ -70,15 +70,20 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
         </div>
 
         <!--
-           El encabezado va posicionado y NO en el flujo: el marco centra
-           su contenido, así que si entrara en la columna empujaría la
-           tapa hacia abajo. Puesto aparte, la tapa se queda donde está.
+           El encabezado va EN el flujo, arriba de todo, y la tapa se
+           centra en lo que sobra (ver .centro). Antes iba posicionado y
+           en un celular de pantalla corta la tapa se le montaba encima y
+           tapaba los nombres.
         -->
         <div id="encabezado-portada" class="encabezado">
             <span class="rayita" aria-hidden="true"></span>
             <p class="novios font-tangerine">{novios}</p>
             <span class="rayita" aria-hidden="true"></span>
         </div>
+
+        <!-- Lo que queda de alto: acá adentro se centran la tapa y la
+             llamada, sin pisar nunca el encabezado -->
+        <div class="centro">
 
         <!--
            La escena lleva la perspectiva: sin ella el giro de la tapa se
@@ -169,6 +174,7 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
             <span>{llamada1}</span>
             <span>{llamada2}</span>
         </p>
+        </div>
     </div>
 </section>
 
@@ -269,19 +275,41 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
        El dorado es el mismo de los nombres de NombresFlores, así que la
        portada y la primera sección hablan el mismo idioma.
     */
+    /*
+       Va en el flujo y no posicionado: así SIEMPRE ocupa su lugar y la
+       tapa no puede montársele encima. Es lo que hace que los nombres se
+       vean igual en un celular largo y en uno corto.
+
+       flex-shrink 0 es parte de lo mismo: dentro de una columna flex, un
+       hijo se encoge si falta alto, y en una pantalla corta el
+       encabezado se habría ido achicando hasta desaparecer.
+    */
     .encabezado {
-        position: absolute;
-        top: 11%;
-        left: 0;
-        right: 0;
+        flex: 0 0 auto;
+        width: 100%;
         z-index: 2;
+        padding-top: 9%;
         text-align: center;
         pointer-events: none;
     }
 
+    /* Se queda con todo el alto que sobra y centra ahí la tapa */
+    .centro {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        /* Sin esto, un hijo flex no se deja achicar por debajo de su
+           contenido y en pantallas cortas empujaría el encabezado */
+        min-height: 0;
+    }
+
     .novios {
         margin: 3.6cqw 0;
-        color: #b9964f;
+        /* Verde, no dorado: el dorado sobre el papel claro se perdía */
+        color: #075843;
         font-size: 12cqw;
         line-height: 1;
     }
