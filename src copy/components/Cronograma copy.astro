@@ -3,7 +3,7 @@
 // "Cronograma" y, debajo, la línea de tiempo: un eje vertical con un
 // punto por momento, una rama que sale hacia un lado y otro, el ícono al
 // final de la rama y el nombre abajo. La hora va pegada al eje, del lado
-// de la rama. Todo sobre el papel blanco, sin fondo.
+// de la rama. Todo sobre una aguada verde muy tenue.
 //
 // ── Cómo está armado ─────────────────────────────────────────
 // Cada momento mide un alto fijo y chico (10.8cqw), y su bloque —ícono y
@@ -27,8 +27,8 @@
 // Todo se mide contra el ancho de la columna: 1cqw = 1% de ese ancho.
 
 // ── DATOS EDITABLES ───────────────────────────────────────────
-// Tanto la Verandah del título como la Tangerine de los nombres traen
-// los acentuados del castellano, así que acá se escribe normal.
+// Sin tilde en el título: la Verandah no trae acentos. Los nombres sí
+// los llevan, porque van en Tangerine, que sí los trae.
 const titulo = "Cronograma";
 
 /*
@@ -36,9 +36,8 @@ const titulo = "Cronograma";
    izquierda, y así alternando. No hace falta indicar el lado.
 
    Los íconos salen de /imagenes y cada archivo lleva el nombre de su
-   momento, salvo tres: "Hayna Wila", "Fandango" y "Turromantikos"
-   comparten turromanticos.png, el disco con la nota. Son los tres
-   momentos de música de la fiesta y por eso llevan el mismo dibujo.
+   momento. "Hayna Wila" y "Fandango" comparten hayna.png, que es el
+   confeti: en el diseño los dos usan el mismo dibujo.
 
    El último no lleva hora, igual que en el diseño.
 */
@@ -50,11 +49,11 @@ const momentos = [
     { nombre: "Fotos", hora: "5:30 P.M.", icono: "fotos.png" },
     { nombre: "Mulata", hora: "6:30 P.M.", icono: "mulata.png" },
     { nombre: "Cena", hora: "7:30 P.M.", icono: "cena.png" },
-    { nombre: "Hayna Wila", hora: "8:30 P.M.", icono: "turromanticos.png" },
+    { nombre: "Hayna Wila", hora: "8:30 P.M.", icono: "hayna.png" },
     { nombre: "Torta", hora: "9:30 P.M.", icono: "torta.png" },
     { nombre: "Bouquete y liga", hora: "9:30 P.M.", icono: "bouquete.png" },
-    { nombre: "Fandango", hora: "10:30 P.M.", icono: "turromanticos.png" },
-    { nombre: "Turromantikos", hora: "00:30 A.M.", icono: "turromanticos.png" },
+    { nombre: "Fandango", hora: "10:30 P.M.", icono: "hayna.png" },
+    { nombre: "Turromanticos", hora: "00:30 A.M.", icono: "turromanticos.png" },
     { nombre: "Despedida Novios", hora: "", icono: "despedida.png" },
 ];
 // ──────────────────────────────────────────────────────────────
@@ -64,6 +63,13 @@ const momentos = [
     <p class="titulo font-verandah">{titulo}</p>
 
     <div id="linea-tiempo" class="linea">
+        <!-- La aguada de fondo, bien tenue, detrás de todo -->
+        <img
+            src="/imagenes/mancha-verde.webp"
+            alt=""
+            aria-hidden="true"
+            class="fondo"
+        />
 
         <!-- El eje vertical -->
         <span class="eje" aria-hidden="true"></span>
@@ -122,6 +128,28 @@ const momentos = [
         padding: 16cqw 0 12cqw;
     }
 
+    /*
+       La aguada va estirada a la caja (object-fit fill). Es un fondo muy
+       tenue: el estirón no se nota porque a esta opacidad se lee como una
+       mancha de acuarela y no como una textura.
+
+       El max-width none no es un adorno: Tailwind le pone max-width 100%
+       a TODA imagen.
+    */
+    .fondo {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 6.85%;
+        z-index: 0;
+        width: 86.3%;
+        max-width: none;
+        height: 100%;
+        object-fit: fill;
+        opacity: 0.45;
+        user-select: none;
+        -webkit-user-drag: none;
+    }
 
     /*
        El centrado va con margen y NO con translateX(-50%): al eje se le

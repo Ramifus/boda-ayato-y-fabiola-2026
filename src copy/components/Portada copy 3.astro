@@ -4,21 +4,11 @@
 // La tarjeta entera es el botón: al pulsarla las cintas se sueltan, la tapa
 // gira como la portada de una carpeta y detrás aparece el interior de papel.
 // El logo (monograma + filigranas) viene como imagen: /imagenes/logo.webp.
-// La melodía arranca al tocar la tapa (ver abrirTodo, en el script): es
-// el único momento en que el navegador deja sonar un audio, porque hace
-// falta un gesto de la persona. Desde ahí la maneja BotonMusica.astro.
+// La música no se toca acá: la maneja Reproductor.astro.
 // ── DATOS EDITABLES ───────────────────────────────────────────
 const llamada1 = "Tenemos una noticia...";
-// La Rantera sí trae los acentuados (le faltan solo ¡ y ¿).
-const llamada2 = "Pulsa aquí";
-
-/*
-   El encabezado que llena el aire de arriba: los nombres entre dos
-   rayitas doradas, y nada más. Antes también llevaba la fecha, pero
-   quedaba diminuta al lado de la llamada de abajo y desbalanceaba la
-   portada. La fecha ya está en la primera sección de la invitación.
-*/
-const novios = "Ayato & Fabiola";
+// Sin tilde: la Rantera no trae acentos.
+const llamada2 = "Pulsa aqui";
 // Frase de adentro. La Elegant es DEMO: solo a-z / A-Z, sin tildes.
 const fraseInterior = "Nos casamos";
 // ──────────────────────────────────────────────────────────────
@@ -68,22 +58,6 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
                 ))
             }
         </div>
-
-        <!--
-           El encabezado va EN el flujo, arriba de todo, y la tapa se
-           centra en lo que sobra (ver .centro). Antes iba posicionado y
-           en un celular de pantalla corta la tapa se le montaba encima y
-           tapaba los nombres.
-        -->
-        <div id="encabezado-portada" class="encabezado">
-            <span class="rayita" aria-hidden="true"></span>
-            <p class="novios font-tangerine">{novios}</p>
-            <span class="rayita" aria-hidden="true"></span>
-        </div>
-
-        <!-- Lo que queda de alto: acá adentro se centran la tapa y la
-             llamada, sin pisar nunca el encabezado -->
-        <div class="centro">
 
         <!--
            La escena lleva la perspectiva: sin ella el giro de la tapa se
@@ -174,7 +148,6 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
             <span>{llamada1}</span>
             <span>{llamada2}</span>
         </p>
-        </div>
     </div>
 </section>
 
@@ -190,13 +163,6 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
 
     /* ── Marco / fondo ──────────────────────────────────────── */
     .marco {
-        /*
-           container-type hace que el encabezado se mida contra el ancho
-           de esta columna y no contra la ventana. Sin esto, en una
-           pantalla de PC las unidades cqw se calculan contra el viewport
-           entero y los nombres salen enormes.
-        */
-        container-type: inline-size;
         position: relative;
         width: 100%;
         max-width: 430px;
@@ -265,69 +231,6 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
     }
 
     /* ── Escena 3D ──────────────────────────────────────────── */
-    /* ── Encabezado ─────────────────────────────────────────── */
-    /*
-       Los nombres entre dos rayitas doradas, y nada más. Las dos rayitas
-       en vez de una sola no son un adorno de más: enmarcan el renglón y
-       le dan peso sin agregar texto, que es lo que hace que aguante al
-       lado de la llamada grande de abajo.
-
-       El dorado es el mismo de los nombres de NombresFlores, así que la
-       portada y la primera sección hablan el mismo idioma.
-    */
-    /*
-       Va en el flujo y no posicionado: así SIEMPRE ocupa su lugar y la
-       tapa no puede montársele encima. Es lo que hace que los nombres se
-       vean igual en un celular largo y en uno corto.
-
-       flex-shrink 0 es parte de lo mismo: dentro de una columna flex, un
-       hijo se encoge si falta alto, y en una pantalla corta el
-       encabezado se habría ido achicando hasta desaparecer.
-    */
-    .encabezado {
-        flex: 0 0 auto;
-        width: 100%;
-        z-index: 2;
-        padding-top: 9%;
-        text-align: center;
-        pointer-events: none;
-    }
-
-    /* Se queda con todo el alto que sobra y centra ahí la tapa */
-    .centro {
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        /* Sin esto, un hijo flex no se deja achicar por debajo de su
-           contenido y en pantallas cortas empujaría el encabezado */
-        min-height: 0;
-    }
-
-    .novios {
-        margin: 3.6cqw 0;
-        /* Verde, no dorado: el dorado sobre el papel claro se perdía */
-        color: #075843;
-        font-size: 12cqw;
-        line-height: 1;
-    }
-
-    /* La rayita se apaga en las puntas: cortada en seco se vería dura */
-    .rayita {
-        display: block;
-        width: 34%;
-        height: 1px;
-        margin: 0 auto;
-        background-image: linear-gradient(
-            90deg,
-            rgba(185, 150, 79, 0),
-            rgba(185, 150, 79, 0.85),
-            rgba(185, 150, 79, 0)
-        );
-    }
-
     .escena {
         position: relative;
         z-index: 2;
@@ -675,7 +578,6 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
             const interiorSombra = document.getElementById("interior-sombra");
             const sombraPiso = document.getElementById("sombra-piso");
             const llamada = document.getElementById("llamada-portada");
-            const encabezado = document.getElementById("encabezado-portada");
             const seccion = document.getElementById("portada-section");
             const capaBlanca = document.getElementById("capa-blanca");
             if (!boton || !tilt || !tapa) return;
@@ -700,8 +602,6 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
             gsap.set(listones, { opacity: 0, x: -30, scaleX: 0.7 });
             gsap.set(logoCaja, { opacity: 0, scale: 0.86 });
             if (llamada) gsap.set(llamada, { opacity: 0, y: 12 });
-            if (encabezado)
-                gsap.set(encabezado.children, { opacity: 0, y: -10 });
 
             // ── Entrada ─────────────────────────────────────────────
             const tl = gsap.timeline({ delay: 0.35 });
@@ -741,22 +641,6 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
                     llamada,
                     { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
                     1.45,
-                );
-            }
-
-            // El encabezado baja primero, antes que la tapa: es lo que
-            // presenta a los novios y después aparece la tapa
-            if (encabezado) {
-                tl.to(
-                    encabezado.children,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.9,
-                        stagger: 0.14,
-                        ease: "power2.out",
-                    },
-                    0.15,
                 );
             }
 
@@ -855,27 +739,7 @@ const polvo = Array.from({ length: 14 }, (_, i) => ({
 
                 gsap.killTweensOf([tilt, sombraPiso]);
 
-                /*
-                   Acá arranca la música, y tiene que ser acá: los
-                   navegadores solo dejan sonar un audio si lo pide un
-                   gesto de la persona. Este toque en la tapa es ese
-                   gesto. Si se intentara al cargar la página, el
-                   navegador lo bloquea y la invitación queda muda.
-
-                   Queda en window.audioGlobal para que el botón de la
-                   esquina —y el Reproductor, si se activa— manejen esta
-                   misma melodía y nunca suenen dos encimadas.
-                */
-                const yaExiste = (window as any).audioGlobal as
-                    | HTMLAudioElement
-                    | undefined;
-                const melodia = yaExiste ?? new Audio("/musica/melodia2.mp3");
-                melodia.loop = true;
-                melodia.volume = 0.65;
-                (window as any).audioGlobal = melodia;
-                // Si el navegador igual lo rechaza, no se rompe nada: la
-                // invitación sigue abriéndose sin música.
-                melodia.play().catch(() => {});
+                // Acá NO se toca la música: de eso se encarga Reproductor.
 
                 gsap.timeline()
                     // La tarjeta se hunde, como si la apretaran

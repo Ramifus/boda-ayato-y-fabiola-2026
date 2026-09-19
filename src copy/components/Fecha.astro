@@ -25,17 +25,10 @@
 // Todo se mide contra el ancho de la columna: 1cqw = 1% de ese ancho.
 
 // ── DATOS EDITABLES ───────────────────────────────────────────
-/*
-   El título SÍ lleva tildes y ñ: se midió la Verandah Reverie y trae
-   todos los acentuados del castellano. Acá arriba decía lo contrario y
-   era un error —el texto se copió sin acentos de la imagen de
-   referencia y se supuso que la fuente no los tenía—.
-
-   La que de verdad NO trae acentos es la Tempting de los rótulos, pero
-   a "Dia", "Lugar" y "Hora" no les hacen falta. Los datos van en
-   Tangerine, que también los trae: por eso "Señora" lleva la suya.
-*/
-const titulo = ["Acompáñanos este día", "tan especial"];
+// Sin tildes: la Verandah del título y la Tempting de los rótulos no
+// traen acentos, y la ñ tampoco. Los datos sí los aceptan (van en
+// Tangerine), por eso "Señora" lleva la suya.
+const titulo = ["Acompananos este dia", "tan especial"];
 
 const dia = { rotulo: "Dia", lineas: ["24", "Octubre"] };
 const lugar = {

@@ -1,57 +1,55 @@
 ---
-// src/components/RecepcionSocial.astro
-// Hermana de CeremoniaReligiosa y armada igual: "Recepcion", la foto del
-// salón rasgada arriba y abajo como papel, la dirección y el botón del
-// mapa. Si se toca una, conviene mirar la otra.
+// src/components/CeremoniaReligiosa.astro
+// "Religioso", la foto de la catedral rasgada arriba y abajo como papel,
+// la dirección del templo y el botón que abre el mapa.
 //
 // ── De dónde salen las medidas ────────────────────────────────
 // Se midió el diseño y se cruzó con los anchos reales de las fuentes:
 //
-//   título      Verandah Reverie — la letra de los títulos de toda la
-//               invitación. Va al mismo tamaño que el "Religioso", para
-//               que las dos secciones hermanas se vean parejas
-//   dirección   Tangerine Regular — los cuatro renglones dan 6.06cqw de
-//               promedio, el mismo valor que salió en Religioso
+//   título      Verandah Reverie a 7.59cqw — el mismo cálculo da 7.83 en
+//               Fecha y en Contador, así que es la letra de los títulos
+//   dirección   Tangerine Regular — los tres renglones dan 6.02, 6.09 y
+//               6.05, o sea la misma letra
 //
-// El rasgado de la foto es el mismo trazo de Foto1.astro, sin tocar: así
-// los papeles rotos de la invitación se ven cortados por la misma mano.
+// El rasgado de la foto es el mismo trazo de Foto1.astro, el de arriba y
+// el de abajo, sin tocar: así los dos papeles rotos de la invitación se
+// ven cortados por la misma mano.
 //
 // Todo se mide contra el ancho de la columna: 1cqw = 1% de ese ancho.
 
 // ── DATOS EDITABLES ───────────────────────────────────────────
-const titulo = "Recepción";
+const titulo = "Religioso";
 
 const lineas = [
-    "La recepción social a realizarse en el",
-    "“ Salón Dorado ”",
-    "del “ Círculo de Oficiales del Ejército ”",
-    "(Calle 15 de Calacoto)",
+    "“ Catedral Metropolitana Basilica",
+    "Nuestra Señora de La Paz ”",
+    "Plaza Murillo.",
 ];
 
-// La Tangerine trae los acentuados; la única fuente del proyecto que no
-// los tiene es la Tempting, que acá no se usa.
+// Con tilde: los datos van en Tangerine, que sí trae acentos (a
+// diferencia de la Verandah del título y de la Tempting).
 const textoBoton = "Ver ubicación";
-// Enlace corto del lugar, sacado del propio Google Maps: abre el punto
-// exacto y no una búsqueda por nombre, que puede caer en otra sucursal.
-const mapa = "https://maps.app.goo.gl/BibQaQ1aqnXujKKB8";
+// Si tenés el enlace corto del lugar (maps.app.goo.gl/...), pegalo acá.
+const mapa =
+    "https://www.google.com/maps/search/?api=1&query=Catedral+Metropolitana+Nuestra+Se%C3%B1ora+de+La+Paz+Plaza+Murillo+La+Paz";
 // ──────────────────────────────────────────────────────────────
 ---
 
-<section id="recepcion-social" class="seccion">
+<section id="ceremonia-religiosa" class="seccion">
     <p class="titulo font-verandah">{titulo}</p>
 
     <!-- La foto va a sangre: llega a los dos bordes de la columna -->
-    <div id="foto-recepcion" class="foto-caja">
+    <div id="foto-ceremonia" class="foto-caja">
         <img
-            src="/imagenes/recepcion-foto.webp"
-            alt="El salón donde se hace la recepción, iluminado de noche"
-            width="1100"
-            height="441"
+            src="/imagenes/ceremonia.webp"
+            alt="La Catedral Metropolitana de La Paz, en la Plaza Murillo"
+            width="1000"
+            height="750"
             class="foto"
         />
     </div>
 
-    <div id="direccion-recepcion" class="direccion">
+    <div id="direccion-ceremonia" class="direccion">
         {lineas.map((linea) => <p class="linea font-tangerine">{linea}</p>)}
     </div>
 
@@ -66,7 +64,7 @@ const mapa = "https://maps.app.goo.gl/BibQaQ1aqnXujKKB8";
         href={mapa}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Ver la ubicación del salón en el mapa"
+        aria-label="Ver la ubicación de la iglesia en el mapa"
     >
         <!-- El alfiler del mapa: es lo que hace que se lea como botón de
              un vistazo, sin tener que probarlo -->
@@ -111,14 +109,14 @@ const mapa = "https://maps.app.goo.gl/BibQaQ1aqnXujKKB8";
        El rasgado va en la caja y no en la foto: así el zoom de entrada
        no asoma por los bordes del papel roto.
 
-       La proporción sale del diseño (305 de ancho por 127 de alto), y es
-       casi la de la foto original (2,49 contra 2,40), así que el recorte
-       apenas le saca unos milímetros de los costados.
+       La proporción sale del diseño (306 de ancho por 210 de alto). La
+       foto original es más alta, así que el object-fit la recorta: se
+       pierde algo de cielo y de vereda, no la fachada.
     */
     .foto-caja {
         position: relative;
         width: 100%;
-        aspect-ratio: 305 / 127;
+        aspect-ratio: 306 / 210;
         overflow: hidden;
         clip-path: polygon(
             0.00% 6.80%,
@@ -241,7 +239,7 @@ const mapa = "https://maps.app.goo.gl/BibQaQ1aqnXujKKB8";
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center 50%;
+        object-position: center 45%;
         user-select: none;
         -webkit-user-drag: none;
     }
@@ -343,8 +341,8 @@ const mapa = "https://maps.app.goo.gl/BibQaQ1aqnXujKKB8";
     gsap.registerPlugin(ScrollTrigger);
 
     document.addEventListener("DOMContentLoaded", () => {
-        const seccion = document.getElementById("recepcion-social");
-        const caja = document.getElementById("foto-recepcion");
+        const seccion = document.getElementById("ceremonia-religiosa");
+        const caja = document.getElementById("foto-ceremonia");
         const boton = document.getElementById("boton-mapa");
         if (!seccion || !caja) return;
 

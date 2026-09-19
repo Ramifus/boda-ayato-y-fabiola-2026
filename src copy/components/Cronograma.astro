@@ -27,8 +27,8 @@
 // Todo se mide contra el ancho de la columna: 1cqw = 1% de ese ancho.
 
 // ── DATOS EDITABLES ───────────────────────────────────────────
-// Tanto la Verandah del título como la Tangerine de los nombres traen
-// los acentuados del castellano, así que acá se escribe normal.
+// Sin tilde en el título: la Verandah no trae acentos. Los nombres sí
+// los llevan, porque van en Tangerine, que sí los trae.
 const titulo = "Cronograma";
 
 /*
@@ -36,9 +36,8 @@ const titulo = "Cronograma";
    izquierda, y así alternando. No hace falta indicar el lado.
 
    Los íconos salen de /imagenes y cada archivo lleva el nombre de su
-   momento, salvo tres: "Hayna Wila", "Fandango" y "Turromantikos"
-   comparten turromanticos.png, el disco con la nota. Son los tres
-   momentos de música de la fiesta y por eso llevan el mismo dibujo.
+   momento. "Hayna Wila" y "Fandango" comparten hayna.png, que es el
+   confeti: en el diseño los dos usan el mismo dibujo.
 
    El último no lleva hora, igual que en el diseño.
 */
@@ -50,11 +49,11 @@ const momentos = [
     { nombre: "Fotos", hora: "5:30 P.M.", icono: "fotos.png" },
     { nombre: "Mulata", hora: "6:30 P.M.", icono: "mulata.png" },
     { nombre: "Cena", hora: "7:30 P.M.", icono: "cena.png" },
-    { nombre: "Hayna Wila", hora: "8:30 P.M.", icono: "turromanticos.png" },
+    { nombre: "Hayna Wila", hora: "8:30 P.M.", icono: "hayna.png" },
     { nombre: "Torta", hora: "9:30 P.M.", icono: "torta.png" },
     { nombre: "Bouquete y liga", hora: "9:30 P.M.", icono: "bouquete.png" },
-    { nombre: "Fandango", hora: "10:30 P.M.", icono: "turromanticos.png" },
-    { nombre: "Turromantikos", hora: "00:30 A.M.", icono: "turromanticos.png" },
+    { nombre: "Fandango", hora: "10:30 P.M.", icono: "hayna.png" },
+    { nombre: "Turromanticos", hora: "00:30 A.M.", icono: "turromanticos.png" },
     { nombre: "Despedida Novios", hora: "", icono: "despedida.png" },
 ];
 // ──────────────────────────────────────────────────────────────
